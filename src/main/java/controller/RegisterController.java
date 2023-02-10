@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import command.RegisterCommand;
@@ -40,8 +41,13 @@ public class RegisterController {
 		return "redirect:/register/terms";
 	}
 	
+	@GetMapping("/register/success")
+	public String handlerSuccessGet() {
+		return "redirect:/register/terms";
+	}
+	
 	@PostMapping("/register/success")
-	public String handlerSuccess(RegisterCommand registerCommand, Errors errors) {
+	public String handlerSuccess(@ModelAttribute("registerCommand") RegisterCommand registerCommand, Errors errors) {
 		
 		new RegisterCommandValidator().validate(registerCommand, errors);
 		if(errors.hasErrors()) {

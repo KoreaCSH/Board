@@ -8,11 +8,13 @@
 <title>회원가입</title>
 </head>
 <body>
-	<form method="post" action="success">
+	<form:form action="success" method="post" commandName="registerCommand">
 	<p>
 		이메일: 
-		<label><input type="text" name="email"/></label>
-		<form:errors path="email"/>
+		<label>
+			<input type="text" name="email"/>
+			<form:errors path="email"/>
+		</label>
 	</p>
 	<p>
 		이름: 
@@ -40,6 +42,6 @@
 		<form:errors path="confirmPassword"/>
 	</p>
 	<input type="submit" value="가입">
-	</form>
+	</form:form>
 </body>
 </html>

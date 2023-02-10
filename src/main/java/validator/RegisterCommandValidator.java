@@ -37,7 +37,8 @@ public class RegisterCommandValidator implements Validator {
 		RegisterCommand regCommand = (RegisterCommand)target;
 		
 		if(regCommand.getEmail() == null || regCommand.getEmail().trim().isEmpty()) {
-			errors.rejectValue("email", "required");
+//			errors.rejectValue("email", "required");
+			errors.rejectValue("email", "required", "필수항목입니다.");
 		} else {
 			Matcher matcher = email_pattern.matcher(regCommand.getEmail());
 			if(!matcher.matches()) {
