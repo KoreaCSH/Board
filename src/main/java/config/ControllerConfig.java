@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import controller.LoginController;
+import controller.LogoutController;
 import controller.RegisterController;
 import service.LoginService;
 import service.RegisterService;
@@ -26,6 +27,11 @@ public class ControllerConfig {
 	@Bean
 	public LoginController loginController() {
 		return new LoginController(loginService);
+	}
+	
+	@Bean
+	public LogoutController logoutController() {
+		return new LogoutController();
 	}
 	
 }

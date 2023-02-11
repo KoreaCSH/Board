@@ -10,7 +10,7 @@
 </head>
 <body>
 	<p>
-		<spring:message code="login.done" arguments="${loginCommand.email}"/>
+		<spring:message code="login.done" arguments="${loginInfo.name},${loginInfo.email}"/>
 	</p>
 	<p>
 		<a href="<c:url value='/main'/>">[<spring:message code="go.main"/>]</a>
