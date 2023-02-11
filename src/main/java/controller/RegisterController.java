@@ -3,6 +3,7 @@ package controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,11 +29,12 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/register/form")
-	public String handlerForm(HttpServletRequest request) {
+	public String handlerForm(HttpServletRequest request, Model model) {
 		String agree = request.getParameter("agree");
 		if(agree == null || !agree.equals("true")) {
 			return "register/terms";
 		}
+		model.addAttribute("registerCommand", new RegisterCommand());
 		return "register/form";
 	}
 	
