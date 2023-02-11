@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import dao.MemberDao;
 import db.DBInfo;
+import service.LoginService;
 import service.RegisterService;
 
 @Configuration
@@ -46,6 +47,11 @@ public class MemberConfig {
 	@Bean
 	public RegisterService registerService() {
 		return new RegisterService(memberDao());
+	}
+	
+	@Bean
+	public LoginService loginService() {
+		return new LoginService(memberDao());
 	}
 	
 }

@@ -68,4 +68,8 @@ public class Member {
 		this.regdate = regdate;
 	}
 	
+	public boolean matchPassword(String password) {
+		return this.password.equals(password);
+	}
+	
 }
