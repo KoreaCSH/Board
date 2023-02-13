@@ -10,16 +10,20 @@
 </head>
 <body>
 	<form:form modelAttribute="loginCommand">
+	<!-- 글로벌 에러 처리 -->
+	<form:errors />
 	<p>
 		<label>
 		<spring:message code="email" />
 		<form:input path="email"/>
+		<form:errors path="email"/>
 		</label>
 	</p>
 	<p>
 		<label>
 		<spring:message code="password" />
 		<form:password path="password"/>
+		<form:errors path="password"/>
 		</label>
 	</p>
 	<p>

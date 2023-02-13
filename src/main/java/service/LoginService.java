@@ -3,6 +3,7 @@ package service;
 import command.LoginInfo;
 import dao.MemberDao;
 import dto.Member;
+import exception.NoMemberException;
 import exception.WrongIdPasswordException;
 
 public class LoginService {
@@ -17,7 +18,7 @@ public class LoginService {
 		Member member = memberDao.selectByEmail(email);
 		
 		if(member == null) {
-			throw new WrongIdPasswordException();
+			throw new NoMemberException();
 		}
 		if(!member.matchPassword(password)) {
 			throw new WrongIdPasswordException();

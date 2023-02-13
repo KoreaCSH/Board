@@ -74,4 +74,9 @@ public class MemberDao {
 		member.setId(keyValue.longValue());
 	}
 	
+	public void updatePassword(Member member) {
+		jdbcTemplate.update(
+				"UPDATE Member SET password=? WHERE email=?", member.getPassword(), member.getEmail());
+	}
+	
 }

@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import controller.ChangePasswordController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.RegisterController;
+import service.ChangePasswordService;
 import service.LoginService;
 import service.RegisterService;
 
@@ -18,6 +20,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private ChangePasswordService changePasswordService;
 	
 	@Bean
 	public RegisterController registerController() {
@@ -32,6 +37,11 @@ public class ControllerConfig {
 	@Bean
 	public LogoutController logoutController() {
 		return new LogoutController();
+	}
+	
+	@Bean
+	public ChangePasswordController changePasswordController() {
+		return new ChangePasswordController(changePasswordService);
 	}
 	
 }

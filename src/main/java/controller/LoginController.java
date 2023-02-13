@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import command.LoginCommand;
 import command.LoginInfo;
+import exception.NoMemberException;
 import exception.WrongIdPasswordException;
 import service.LoginService;
+import validator.LoginCommandValidator;
 
 @Controller
 @RequestMapping("/login")
@@ -38,7 +41,13 @@ public class LoginController {
 	}
 	
 	@PostMapping
-	public String handlerSubmit(LoginCommand loginCommand, HttpSession session, HttpServletResponse response) {
+	public String handlerSubmit(LoginCommand loginCommand, Errors errors, 
+			HttpSession session, HttpServletResponse response) {
+		
+		new LoginCommandValidator().validate(loginCommand, errors);
+		if(errors.hasErrors()) {
+			return "login/form";
+		}
 		
 		try {
 			LoginInfo loginInfo = loginService.authenticate(loginCommand.getEmail(), loginCommand.getPassword());
@@ -55,9 +64,13 @@ public class LoginController {
 			response.addCookie(rememberCookie);
 			
 			return "login/success";
-		} catch(WrongIdPasswordException e) {
+		} catch(NoMemberException e) { 
+			errors.rejectValue("email", "nomember");
 			return "login/form";
-		}
+		} catch(WrongIdPasswordException e) {
+			errors.reject("idPasswordNotMatching");
+			return "login/form";
+		} 
 	}
 	
 }

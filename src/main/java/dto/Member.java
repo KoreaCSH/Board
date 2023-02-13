@@ -2,6 +2,8 @@ package dto;
 
 import java.time.LocalDateTime;
 
+import exception.WrongIdPasswordException;
+
 public class Member {
 
 	private Long id;
@@ -70,6 +72,13 @@ public class Member {
 	
 	public boolean matchPassword(String password) {
 		return this.password.equals(password);
+	}
+	
+	public void changePassword(String oldpwd, String newpwd) {
+		if(!password.equals(oldpwd)) {
+			throw new WrongIdPasswordException();
+		}
+		this.password = newpwd;
 	}
 	
 }
