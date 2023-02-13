@@ -3,6 +3,7 @@ package controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import command.ChangePasswordCommand;
 import command.LoginInfo;
+import exception.WrongIdPasswordException;
 import service.ChangePasswordService;
+import validator.ChangePasswordCommandValidator;
 
 @Controller
 @RequestMapping("/edit/changePassword")
@@ -29,16 +32,26 @@ public class ChangePasswordController {
 	
 	@PostMapping
 	public String handlerSubmit(@ModelAttribute("changePasswordCommand") ChangePasswordCommand changePasswordCommand, 
-			HttpSession session) {
+			Errors errors, HttpSession session) {
 		
-		LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo"); 
+		new ChangePasswordCommandValidator().validate(changePasswordCommand, errors);
+		if(errors.hasErrors()) {
+			return "edit/changePwdForm";
+		}
 		
-		changePasswordService
-		.changePassword(loginInfo.getEmail(), 
-				changePasswordCommand.getCurrentPassword(), 
-				changePasswordCommand.getNewPassword());
-		
-		return "edit/changePwdsuccess";
+		try {
+			LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo"); 
+			
+			changePasswordService
+			.changePassword(loginInfo.getEmail(), 
+					changePasswordCommand.getCurrentPassword(), 
+					changePasswordCommand.getNewPassword());
+			
+			return "edit/changePwdsuccess";
+		} catch(WrongIdPasswordException e) {
+			errors.rejectValue("currentPassword", "notMatching");;
+			return "edit/changePwdForm";
+		}
 	}
 	
 }
