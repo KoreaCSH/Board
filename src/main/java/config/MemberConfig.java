@@ -7,6 +7,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import dao.BoardDao;
 import dao.MemberDao;
 import db.DBInfo;
 import service.ChangePasswordService;
@@ -58,6 +59,11 @@ public class MemberConfig {
 	@Bean
 	public ChangePasswordService changePasswordService() {
 		return new ChangePasswordService(memberDao());
+	}
+	
+	@Bean
+	public BoardDao boardDao() {
+		return new BoardDao(dataSource());
 	}
 	
 }

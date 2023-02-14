@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import controller.BoardListController;
 import controller.ChangePasswordController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.RegisterController;
+import dao.BoardDao;
 import service.ChangePasswordService;
 import service.LoginService;
 import service.RegisterService;
@@ -23,6 +25,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private ChangePasswordService changePasswordService;
+	
+	@Autowired
+	private BoardDao boardDao;
 	
 	@Bean
 	public RegisterController registerController() {
@@ -42,6 +47,11 @@ public class ControllerConfig {
 	@Bean
 	public ChangePasswordController changePasswordController() {
 		return new ChangePasswordController(changePasswordService);
+	}
+	
+	@Bean
+	public BoardListController boardListController() {
+		return new BoardListController(boardDao);
 	}
 	
 }
