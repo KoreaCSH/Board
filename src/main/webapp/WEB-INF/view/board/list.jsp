@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,12 +27,12 @@
           <c:forEach var="board" items="${list}">
           <tr>
             <td>${board.board_id}</td>
-            <td id="td-title">${board.title}</td>
-            <td>${board.email}</td>
-            <td>${board.uploaddate}</td>
-            <td>${board.hit}</td>
-        </tr>
-        </c:forEach>
+            <td id="td-title"><a href="board/${board.board_id}">${board.title}</a></td>
+            <td>${board.name}</td>
+            <td><tf:formatDateTime value="${board.uploaddate}" pattern="yyyy-MM-dd" /></td>
+            <td><fmt:formatNumber value="${board.hit}"/></td>
+          </tr>
+          </c:forEach>
         </tbody>
       </table>
 

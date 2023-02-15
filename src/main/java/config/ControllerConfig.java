@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import controller.BoardDetailController;
 import controller.BoardListController;
 import controller.ChangePasswordController;
 import controller.LoginController;
@@ -52,6 +53,11 @@ public class ControllerConfig {
 	@Bean
 	public BoardListController boardListController() {
 		return new BoardListController(boardDao);
+	}
+	
+	@Bean
+	public BoardDetailController boardDetailController() {
+		return new BoardDetailController(boardDao);
 	}
 	
 }

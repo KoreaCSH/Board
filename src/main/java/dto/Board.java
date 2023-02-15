@@ -11,6 +11,7 @@ public class Board {
 	private LocalDateTime uploaddate;
 	private int hit;
 	private String files;
+	private String name;
 	
 	public Board() {
 
@@ -66,6 +67,14 @@ public class Board {
 	}
 	public void setFiles(String files) {
 		this.files = files;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
