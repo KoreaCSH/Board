@@ -35,6 +35,10 @@
           </c:forEach>
         </tbody>
       </table>
+      
+      <div>
+      <a href="board/post">글쓰기</a>
+      </div>
 
 </body>
 </html>

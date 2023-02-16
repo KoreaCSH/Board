@@ -41,7 +41,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginCheckInterceptor())
-		.addPathPatterns("/edit/**");
+		.addPathPatterns("/edit/**", "/board/post");
 	}
 	
 	@Bean

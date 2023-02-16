@@ -12,6 +12,7 @@ import dao.MemberDao;
 import db.DBInfo;
 import service.ChangePasswordService;
 import service.LoginService;
+import service.PostService;
 import service.RegisterService;
 
 @Configuration
@@ -64,6 +65,11 @@ public class MemberConfig {
 	@Bean
 	public BoardDao boardDao() {
 		return new BoardDao(dataSource());
+	}
+	
+	@Bean
+	public PostService postService() {
+		return new PostService(boardDao());
 	}
 	
 }

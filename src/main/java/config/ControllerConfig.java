@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import controller.BoardDetailController;
 import controller.BoardListController;
+import controller.BoardPostController;
 import controller.ChangePasswordController;
 import controller.LoginController;
 import controller.LogoutController;
@@ -13,6 +14,7 @@ import controller.RegisterController;
 import dao.BoardDao;
 import service.ChangePasswordService;
 import service.LoginService;
+import service.PostService;
 import service.RegisterService;
 
 @Configuration
@@ -29,6 +31,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private BoardDao boardDao;
+	
+	@Autowired
+	private PostService postService;
 	
 	@Bean
 	public RegisterController registerController() {
@@ -58,6 +63,11 @@ public class ControllerConfig {
 	@Bean
 	public BoardDetailController boardDetailController() {
 		return new BoardDetailController(boardDao);
+	}
+	
+	@Bean
+	public BoardPostController boardPostController() {
+		return new BoardPostController(postService);
 	}
 	
 }

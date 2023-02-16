@@ -1,13 +1,19 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import dto.Board;
 
@@ -22,7 +28,7 @@ public class BoardDao {
 	public List<Board> selectAll() {
 		
 		List<Board> list = jdbcTemplate.query(
-				"select board_id, title, email, content, uploaddate, hit, files, name from Member natural join Board", 
+				"select board_id, title, email, content, uploaddate, hit, files, name from Member natural join Board order by uploaddate desc", 
 				(ResultSet rs, int rowNum) -> {
 					Board board = new Board(
 							rs.getString("title"),
@@ -63,6 +69,29 @@ public class BoardDao {
 				board_id);
 		
 		return results.isEmpty() ? null : results.get(0);
+	}
+	
+	public void insert(Board board) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement(
+						"insert into Board (title, email, content, uploaddate, hit, files) values (?,?,?,?,?,?)",
+						new String[] {"board_id"});
+				
+				pstmt.setString(1, board.getTitle());
+				pstmt.setString(2, board.getEmail());
+				pstmt.setString(3, board.getContent());
+				pstmt.setTimestamp(4, Timestamp.valueOf(board.getUploaddate()));
+				pstmt.setInt(5, board.getHit());
+				pstmt.setString(6, board.getFiles());
+				
+				return pstmt;
+			}
+		}, keyHolder);
+		Number keyValue = keyHolder.getKey();
+		board.setBoard_id(keyValue.longValue());
 	}
  	
 }
