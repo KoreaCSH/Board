@@ -3,6 +3,7 @@ package controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import command.LoginInfo;
 import command.PostCommand;
 import service.PostService;
+import validator.PostCommandValidator;
 
 @Controller
 @RequestMapping("/board/post")
@@ -28,7 +30,12 @@ public class BoardPostController {
 	}
 	
 	@PostMapping
-	public String submit(PostCommand postCommand, HttpSession session) {
+	public String submit(PostCommand postCommand, Errors errors, HttpSession session) {
+		
+		new PostCommandValidator().validate(postCommand, errors);
+		if(errors.hasErrors()) {
+			return "board/post";
+		}
 		
 		LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
 		String email = loginInfo.getEmail();

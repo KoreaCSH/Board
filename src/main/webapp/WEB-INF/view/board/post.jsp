@@ -14,14 +14,14 @@
 			<tbody>
 			<tr>
 				<th>제목</th>
-				<td colspan="3"><form:input path="title"/></td>
+				<td colspan="3"><form:input path="title"/><form:errors path="title" /></td>
 			</tr>
 			<tr>
 				<th>첨부파일</th>
 				<td colspan="3"><form:input path="files"/></td>
 			</tr>
 			<tr>
-				<td colspan="4"><form:textarea path="content"/></td>
+				<td colspan="4"><form:textarea path="content"/><form:errors path="content" /></td>
 			</tr>
 			</tbody>
 		</table>

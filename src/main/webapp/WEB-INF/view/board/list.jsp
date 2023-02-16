@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,12 @@
       </table>
       
       <div>
-      <a href="board/post">글쓰기</a>
+      <p>
+      <a href="board/post">[글쓰기]</a>
+      </p>
+      <p>
+		<a href="<c:url value='/main'/>">[<spring:message code="go.main"/>]</a>
+	  </p>
       </div>
 
 </body>
