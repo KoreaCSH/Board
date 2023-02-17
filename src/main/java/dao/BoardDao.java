@@ -93,5 +93,10 @@ public class BoardDao {
 		Number keyValue = keyHolder.getKey();
 		board.setBoard_id(keyValue.longValue());
 	}
+	
+	public void updateHit(Board board) {
+		jdbcTemplate.update(
+				"UPDATE Board SET hit = hit + 1 WHERE board_id=?", board.getBoard_id());
+	}
  	
 }
