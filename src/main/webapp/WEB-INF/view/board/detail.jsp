@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,5 +17,12 @@
 	<p>첨부파일: ${board.files}</p> <br>
 	<p>내용: ${board.content}</p> <br>
 	<p><a href="/Board/board">목록</a></p>
+	
+	<div>
+	<form method="post" action="comment">
+	<textarea name="commentCommand"></textarea>
+	<input type="submit" value="등록"/>
+	</form>	
+	</div>
 </body>
 </html>

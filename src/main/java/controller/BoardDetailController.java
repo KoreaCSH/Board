@@ -21,6 +21,8 @@ public class BoardDetailController {
 	}
 	
 	// 매핑 애노테이션 매서드에 @Transactional 설정해도 무방한가?
+	// MemberConfig에 EnableTransactionManagement 애노테이션이 있으므로 service 클래스를 만든 후
+	// 해당 Config에 service를 @Bean으로 등록하는 것이 올바른 방법일 듯 하다.
 	@GetMapping("/board/{board_id}")
 	@Transactional
 	public String detail(@PathVariable("board_id") Long board_id, Model model) {

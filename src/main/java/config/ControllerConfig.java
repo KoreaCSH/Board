@@ -8,6 +8,7 @@ import controller.BoardDetailController;
 import controller.BoardListController;
 import controller.BoardPostController;
 import controller.ChangePasswordController;
+import controller.CommentController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.RegisterController;
@@ -68,6 +69,11 @@ public class ControllerConfig {
 	@Bean
 	public BoardPostController boardPostController() {
 		return new BoardPostController(postService);
+	}
+	
+	@Bean
+	public CommentController commentController() {
+		return new CommentController();
 	}
 	
 }
