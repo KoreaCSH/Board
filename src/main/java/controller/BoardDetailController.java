@@ -5,8 +5,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import command.CommentCommand;
 import dao.BoardDao;
 import dto.Board;
 import exception.BoardNotFoundException;
@@ -34,6 +37,15 @@ public class BoardDetailController {
 		boardDao.updateHit(board);
 		
 		model.addAttribute("board", board);
+		return "board/detail";
+	}
+	
+	@PostMapping("/board/{board_id}")
+	public String comment(@PathVariable("board_id") Long board_id, 
+			@ModelAttribute("commentCommand") CommentCommand commentCommand) {
+		
+		
+		
 		return "board/detail";
 	}
 	

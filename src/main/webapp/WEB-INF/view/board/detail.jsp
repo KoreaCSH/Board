@@ -20,7 +20,7 @@
 	
 	<div>
 	<form method="post" action="comment">
-	<textarea name="commentCommand"></textarea>
+	<textarea name="comment_content"></textarea>
 	<input type="submit" value="등록"/>
 	</form>	
 	</div>
