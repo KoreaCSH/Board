@@ -1,5 +1,10 @@
 package controller;
 
+import java.time.LocalDateTime;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -10,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import command.CommentCommand;
+import command.LoginInfo;
 import dao.BoardDao;
 import dto.Board;
+import dto.Comment;
 import exception.BoardNotFoundException;
 
 @Controller
@@ -42,11 +49,24 @@ public class BoardDetailController {
 	
 	@PostMapping("/board/{board_id}")
 	public String comment(@PathVariable("board_id") Long board_id, 
-			@ModelAttribute("commentCommand") CommentCommand commentCommand) {
+			@ModelAttribute("commentCommand") CommentCommand commentCommand, 
+			HttpSession session) {
 		
+		LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+		if(loginInfo == null) {
+			return "redirect:/login";
+		}
+		String email = loginInfo.getEmail();
 		
+		Comment newComment = new Comment(
+				board_id,
+				email,
+				commentCommand.getComment_content(),
+				LocalDateTime.now());
 		
-		return "board/detail";
+		boardDao.insert_comment(newComment);
+		
+		return "redirect:/board/"+board_id;
 	}
 	
 	@ExceptionHandler(BoardNotFoundException.class)

@@ -16,6 +16,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import dto.Board;
+import dto.Comment;
 
 public class BoardDao {
 
@@ -92,6 +93,27 @@ public class BoardDao {
 		}, keyHolder);
 		Number keyValue = keyHolder.getKey();
 		board.setBoard_id(keyValue.longValue());
+	}
+	
+	public void insert_comment(Comment comment) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement(
+						"insert into Board_comment (board_id, email, comment_content, comment_uploaddate) values (?,?,?,?)",
+						new String[] {"comment_id"});
+				
+				pstmt.setLong(1, comment.getBoard_id());
+				pstmt.setString(2, comment.getEmail());
+				pstmt.setString(3, comment.getComment_content());
+				pstmt.setTimestamp(4, Timestamp.valueOf(comment.getComment_uploaddate()));
+				
+				return pstmt;
+			}
+		}, keyHolder);
+		Number keyValue = keyHolder.getKey();
+		comment.setComment_id(keyValue.longValue());
 	}
 	
 	public void updateHit(Board board) {
