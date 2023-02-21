@@ -8,6 +8,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import dao.BoardDao;
+import dao.CommentDao;
 import dao.MemberDao;
 import db.DBInfo;
 import service.ChangePasswordService;
@@ -70,6 +71,11 @@ public class MemberConfig {
 	@Bean
 	public PostService postService() {
 		return new PostService(boardDao());
+	}
+	
+	@Bean
+	public CommentDao commentDao() {
+		return new CommentDao(dataSource());
 	}
 	
 }

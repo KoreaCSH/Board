@@ -12,6 +12,7 @@ import controller.LoginController;
 import controller.LogoutController;
 import controller.RegisterController;
 import dao.BoardDao;
+import dao.CommentDao;
 import service.ChangePasswordService;
 import service.LoginService;
 import service.PostService;
@@ -34,6 +35,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private CommentDao commentDao;
 	
 	@Bean
 	public RegisterController registerController() {
@@ -62,7 +66,7 @@ public class ControllerConfig {
 	
 	@Bean
 	public BoardDetailController boardDetailController() {
-		return new BoardDetailController(boardDao);
+		return new BoardDetailController(boardDao, commentDao);
 	}
 	
 	@Bean

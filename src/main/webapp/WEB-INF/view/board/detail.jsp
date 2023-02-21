@@ -20,16 +20,25 @@
 	<p><a href="/Board/board">목록</a></p>
 	
 	<div>
-	<form method="post">
-		<textarea name="comment_content"></textarea>
-		<input type="submit" value="등록"/>
-	</form>	
+	<form:form method="post" modelAttribute="commentCommand">
+		<label>
+			<form:textarea path="comment_content"/>
+			<form:errors path="comment_content"/>
+		</label>
+		<br>
+		<input type="submit" value="등록" />
+	</form:form>
 	</div>
 	
 	<br>
 	
 	<div>
-	
+	<c:forEach var="comment" items="${comment_list}">
+		<p>--------------------------</p>
+		<label>아이디: ${comment.email}  게시일: ${comment.comment_uploaddate}</label> <br>
+		<label>내용: ${comment.comment_content}</label>
+		<p>--------------------------</p>
+	</c:forEach>
 	</div>
 </body>
 </html>
